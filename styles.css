@@ -63,15 +63,36 @@ body {
   margin: 0;
   font-family: "Raleway", Arial, sans-serif;
   color: var(--ink);
-  background:
-    linear-gradient(rgba(124, 58, 237, 0.02) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(124, 58, 237, 0.02) 1px, transparent 1px),
-    var(--surface);
-  background-size: 42px 42px;
+  background: var(--surface);
   line-height: 1.6;
   font-weight: 400;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+/* Mesh gradient atmosphere */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 60% 50% at 20% 20%, rgba(124, 58, 237, 0.07) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 60% at 80% 30%, rgba(167, 139, 250, 0.05) 0%, transparent 55%),
+    radial-gradient(ellipse 70% 50% at 50% 80%, rgba(91, 33, 182, 0.04) 0%, transparent 55%),
+    radial-gradient(ellipse 40% 40% at 90% 90%, rgba(124, 58, 237, 0.03) 0%, transparent 50%);
+}
+
+/* Noise texture for premium feel */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0.025;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
 body::selection {
@@ -386,10 +407,10 @@ img {
   position: absolute;
   inset: 0;
   content: "";
-  background-image:
-    linear-gradient(120deg, transparent 0 42%, rgba(124, 58, 237, 0.08) 42.2%, transparent 42.6%),
-    linear-gradient(60deg, transparent 0 58%, rgba(107, 114, 128, 0.06) 58.2%, transparent 58.6%);
-  opacity: 0.4;
+  background:
+    radial-gradient(ellipse 60% 60% at 70% 20%, rgba(124, 58, 237, 0.06), transparent 60%),
+    radial-gradient(ellipse 50% 50% at 20% 80%, rgba(167, 139, 250, 0.04), transparent 55%);
+  pointer-events: none;
 }
 
 .hero::after {
@@ -417,16 +438,16 @@ img {
   margin: 0;
   color: var(--navy);
   font-family: "Lora", Georgia, serif;
-  font-weight: 700;
-  line-height: 1.1;
+  font-weight: 600;
+  line-height: 1.15;
   letter-spacing: -0.02em;
 }
 
 .hero h1 {
-  max-width: 760px;
-  font-size: clamp(2.5rem, 4.5vw, 4.75rem);
-  line-height: 1.08;
-  letter-spacing: -0.02em;
+  max-width: 700px;
+  font-size: clamp(2rem, 3.5vw, 3.25rem);
+  line-height: 1.12;
+  letter-spacing: -0.025em;
   background: linear-gradient(135deg, var(--navy) 0%, var(--primary-dark) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -434,11 +455,11 @@ img {
 }
 
 .hero p {
-  max-width: 650px;
-  margin: 22px 0 0;
+  max-width: 580px;
+  margin: 20px 0 0;
   color: #4b5563;
-  font-size: 1.1rem;
-  line-height: 1.75;
+  font-size: 1.05rem;
+  line-height: 1.7;
 }
 
 .hero-actions {
@@ -528,16 +549,16 @@ img {
 
 .section {
   position: relative;
-  padding: 112px 6vw;
+  padding: 120px 6vw;
 }
 
 .section-label {
   display: block;
-  margin-bottom: 18px;
+  margin-bottom: 16px;
   color: var(--primary);
-  font-size: 0.82rem;
-  font-weight: 700;
-  letter-spacing: 0.08em;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
 }
 
@@ -640,17 +661,18 @@ img {
 .section-copy h2,
 .section-heading h2,
 .contact h2 {
-  font-size: clamp(2.25rem, 3.8vw, 3.75rem);
-  letter-spacing: -0.02em;
-  line-height: 1.12;
+  font-size: clamp(1.75rem, 3vw, 2.75rem);
+  letter-spacing: -0.025em;
+  line-height: 1.15;
 }
 
 .section-copy p,
 .section-heading p,
 .contact-copy p {
   color: var(--muted);
-  font-size: 1.06rem;
+  font-size: 1rem;
   line-height: 1.7;
+  max-width: 600px;
 }
 
 .essence {
@@ -764,24 +786,21 @@ img {
   position: absolute;
   inset: 0;
   content: "";
-  background-image:
-    linear-gradient(rgba(124, 58, 237, 0.025) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(124, 58, 237, 0.025) 1px, transparent 1px);
-  background-size: 36px 36px;
-  mask-image: linear-gradient(180deg, transparent, #000 18%, #000 82%, transparent);
+  background:
+    radial-gradient(ellipse 80% 50% at 50% 0%, rgba(124, 58, 237, 0.04), transparent 70%);
   pointer-events: none;
 }
 
 .section-heading {
-  max-width: 850px;
-  margin-bottom: 48px;
+  max-width: 700px;
+  margin-bottom: 56px;
 }
 
 .product-grid,
 .differential-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 28px;
+  gap: 32px;
 }
 
 .product-card {
@@ -915,10 +934,9 @@ img {
   inset: 0;
   content: "";
   background:
-    linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
-  background-size: 44px 44px;
-  mask-image: linear-gradient(90deg, transparent, #000 20%, #000 80%, transparent);
+    radial-gradient(ellipse 50% 40% at 25% 30%, rgba(124, 58, 237, 0.25), transparent 60%),
+    radial-gradient(ellipse 40% 50% at 75% 70%, rgba(91, 33, 182, 0.2), transparent 55%);
+  opacity: 0.85;
 }
 
 .differentials .section-label {
@@ -942,7 +960,7 @@ img {
 
 .differential-grid {
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 32px;
+  gap: 36px;
 }
 
 .differential-grid article {
@@ -1280,6 +1298,235 @@ img {
   }
 }
 
+/* ============================================
+   3D EFFECTS
+   ============================================ */
+
+/* Perspective containers */
+.hero {
+  perspective: 1200px;
+}
+
+.portfolio,
+.essence,
+.process {
+  perspective: 1000px;
+}
+
+/* 3D Card hover effects */
+.product-card,
+.essence-grid article,
+.process-timeline article {
+  transform-style: preserve-3d;
+  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+              box-shadow 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.product-card:hover {
+  transform: rotateY(-4deg) rotateX(2deg) translateZ(15px);
+}
+
+.essence-grid article:hover {
+  transform: rotateY(3deg) rotateX(-2deg) translateZ(12px);
+}
+
+.process-timeline article:hover {
+  transform: rotateY(-2deg) rotateX(2deg) translateZ(10px);
+}
+
+/* Hero floating 3D */
+.hero-media {
+  transform-style: preserve-3d;
+  animation: heroFloat3D 8s ease-in-out infinite;
+}
+
+@keyframes heroFloat3D {
+  0%, 100% {
+    transform: translateZ(0) rotateY(0deg) rotateX(0deg);
+  }
+  25% {
+    transform: translateZ(15px) rotateY(2deg) rotateX(1deg);
+  }
+  50% {
+    transform: translateZ(25px) rotateY(0deg) rotateX(-1deg);
+  }
+  75% {
+    transform: translateZ(10px) rotateY(-2deg) rotateX(1deg);
+  }
+}
+
+.hero-proof {
+  transform-style: preserve-3d;
+  animation: proofFloat3D 6s ease-in-out infinite;
+}
+
+@keyframes proofFloat3D {
+  0%, 100% {
+    transform: translateZ(0) rotateX(0deg);
+  }
+  50% {
+    transform: translateZ(12px) rotateX(2deg);
+  }
+}
+
+/* Molecules 3D rotation */
+.molecule {
+  transform-style: preserve-3d;
+  animation: moleculeRotate3D 20s linear infinite;
+}
+
+@keyframes moleculeRotate3D {
+  0% {
+    transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg);
+  }
+  100% {
+    transform: rotateX(360deg) rotateY(180deg) rotateZ(90deg);
+  }
+}
+
+.molecule-one {
+  animation-duration: 25s;
+}
+
+.molecule-two {
+  animation-duration: 18s;
+  animation-direction: reverse;
+}
+
+.molecule-three {
+  animation-duration: 22s;
+}
+
+/* Hero hexagon 3D */
+.hero::after {
+  transform-style: preserve-3d;
+  animation: hexagonFloat3D 15s ease-in-out infinite;
+}
+
+@keyframes hexagonFloat3D {
+  0%, 100% {
+    transform: translateZ(0) rotateY(0deg) rotateX(0deg);
+  }
+  33% {
+    transform: translateZ(20px) rotateY(5deg) rotateX(3deg);
+  }
+  66% {
+    transform: translateZ(10px) rotateY(-3deg) rotateX(-2deg);
+  }
+}
+
+/* Card icon 3D */
+.card-icon {
+  transform-style: preserve-3d;
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.product-card:hover .card-icon {
+  transform: rotateY(12deg) rotateX(8deg) scale(1.08);
+}
+
+/* Mini icon 3D */
+.mini-icon {
+  transform-style: preserve-3d;
+  transition: transform 0.3s ease;
+}
+
+.differential-grid article:hover .mini-icon {
+  transform: translateZ(8px) scale(1.15);
+}
+
+/* Button 3D */
+.button,
+.header-cta,
+.whatsapp-link {
+  transform-style: preserve-3d;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.button:hover,
+.header-cta:hover {
+  transform: translateY(-2px) translateZ(8px);
+}
+
+.button:active,
+.header-cta:active {
+  transform: translateY(1px) translateZ(4px);
+}
+
+/* Nav link 3D */
+.site-nav a {
+  transform-style: preserve-3d;
+  transition: all 0.3s ease;
+}
+
+.site-nav a:hover {
+  transform: translateZ(4px);
+}
+
+/* Footer link 3D */
+.site-footer a {
+  transform-style: preserve-3d;
+  transition: all 0.3s ease;
+}
+
+.site-footer a:hover {
+  transform: translateZ(4px) translateX(3px);
+}
+
+/* 3D Scroll reveal classes */
+.reveal-3d-left {
+  transform: perspective(1000px) rotateY(-15deg) translateX(-30px);
+  opacity: 0;
+  transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.reveal-3d-right {
+  transform: perspective(1000px) rotateY(15deg) translateX(30px);
+  opacity: 0;
+  transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.reveal-3d-up {
+  transform: perspective(1000px) rotateX(12deg) translateY(30px);
+  opacity: 0;
+  transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.reveal-3d-left.is-visible,
+.reveal-3d-right.is-visible,
+.reveal-3d-up.is-visible {
+  transform: perspective(1000px) rotateY(0deg) rotateX(0deg) translate(0);
+  opacity: 1;
+}
+
+/* Reduce motion for 3D */
+@media (prefers-reduced-motion: reduce) {
+  .product-card,
+  .essence-grid article,
+  .process-timeline article,
+  .hero-media,
+  .hero-proof,
+  .molecule,
+  .hero::after,
+  .card-icon,
+  .mini-icon,
+  .button,
+  .header-cta,
+  .whatsapp-link,
+  .site-nav a,
+  .site-footer a {
+    animation: none !important;
+    transform: none !important;
+  }
+  
+  .reveal-3d-left,
+  .reveal-3d-right,
+  .reveal-3d-up {
+    transform: none !important;
+    opacity: 1 !important;
+  }
+}
+
 @media (max-width: 980px) {
   .site-header {
     grid-template-columns: auto auto;
@@ -1448,5 +1695,378 @@ img {
   .reveal-scale {
     opacity: 1;
     transform: none;
+  }
+}
+
+/* ============================================
+   ULTRA MODERN REFINEMENTS
+   ============================================ */
+
+/* Scroll progress indicator */
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 0%;
+  height: 2px;
+  background: linear-gradient(90deg, var(--primary), var(--primary-light));
+  z-index: 100;
+  transition: width 0.1s linear;
+  pointer-events: none;
+}
+
+/* Cursor follower (desktop only) */
+.cursor-follower {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--primary);
+  position: fixed;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  mix-blend-mode: difference;
+  opacity: 0;
+  transition: width 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+              height 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+              background 0.25s ease,
+              opacity 0.3s ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .cursor-follower {
+    opacity: 0.5;
+  }
+}
+
+/* Hero badge */
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 16px;
+  margin-bottom: 24px;
+  border-radius: 100px;
+  background: linear-gradient(135deg, rgba(124, 58, 237, 0.08), rgba(167, 139, 250, 0.08));
+  border: 1px solid rgba(124, 58, 237, 0.15);
+  color: var(--primary);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  backdrop-filter: blur(8px);
+  animation: fadeUp 0.8s 0.1s ease both;
+}
+
+.hero-badge .dot {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--primary);
+  box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.15);
+  animation: pulse 2s ease-in-out infinite;
+}
+
+/* Hero particles */
+.hero-particles {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.hero-particles span {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(124, 58, 237, 0.3);
+  animation: particleFloat 12s ease-in-out infinite;
+}
+
+@keyframes particleFloat {
+  0%, 100% {
+    transform: translateY(0) translateX(0);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  50% {
+    transform: translateY(-40px) translateX(20px);
+    opacity: 0.5;
+  }
+}
+
+/* Glassmorphism refinement for cards */
+.product-card,
+.essence-grid article,
+.process-timeline article,
+.about-panel div {
+  backdrop-filter: blur(12px) saturate(1.1);
+}
+
+/* Gradient border on hover for product cards */
+.product-card {
+  background: rgba(255, 255, 255, 0.72);
+  border: 1px solid transparent;
+  background-clip: padding-box;
+  position: relative;
+}
+
+.product-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(135deg, var(--primary-light), transparent 40%, transparent 60%, var(--primary-light));
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  pointer-events: none;
+}
+
+.product-card:hover::after {
+  opacity: 1;
+}
+
+/* Glow on hover */
+.product-card:hover,
+.essence-grid article:hover,
+.process-timeline article:hover {
+  box-shadow:
+    0 0 30px rgba(124, 58, 237, 0.08),
+    0 0 60px rgba(124, 58, 237, 0.04),
+    var(--shadow-xl);
+}
+
+/* Glassmorphism for essence cards */
+.essence-grid article {
+  background: rgba(255, 255, 255, 0.72);
+  border: 1px solid rgba(233, 229, 245, 0.6);
+}
+
+/* Glassmorphism for process cards */
+.process-timeline article {
+  background: rgba(255, 255, 255, 0.72);
+  border: 1px solid rgba(233, 229, 245, 0.6);
+}
+
+/* Glassmorphism for hero proof */
+.hero-proof {
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(24px) saturate(1.3);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+}
+
+.hero-proof span {
+  background: rgba(255, 255, 255, 0.4);
+}
+
+/* Glassmorphism for header */
+.site-header {
+  background: rgba(255, 255, 255, 0.72);
+  backdrop-filter: blur(24px) saturate(1.4);
+  border-bottom: 1px solid rgba(233, 229, 245, 0.5);
+}
+
+.site-header.is-scrolled {
+  background: rgba(255, 255, 255, 0.85);
+  box-shadow: 0 4px 24px rgba(124, 58, 237, 0.06);
+}
+
+/* Glassmorphism for contact form */
+.contact-form {
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(20px) saturate(1.2);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  box-shadow:
+    0 0 40px rgba(124, 58, 237, 0.04),
+    var(--shadow-lg);
+}
+
+/* Image loading transitions */
+img {
+  transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+img.is-loading {
+  opacity: 0;
+}
+
+/* Selection style */
+::selection {
+  background: var(--primary);
+  color: #fff;
+}
+
+/* Focus visible modern */
+:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* Magnetic button base */
+.button,
+.header-cta,
+.whatsapp-link {
+  will-change: transform;
+}
+
+/* Differentials section premium dark */
+.differentials {
+  background:
+    radial-gradient(ellipse 60% 50% at 30% 20%, rgba(124, 58, 237, 0.3), transparent 60%),
+    radial-gradient(ellipse 50% 40% at 70% 80%, rgba(91, 33, 182, 0.25), transparent 55%),
+    linear-gradient(180deg, #1e1b4b 0%, #312e81 100%);
+}
+
+.differential-grid article {
+  position: relative;
+  padding: 28px 24px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-lg);
+  backdrop-filter: blur(12px);
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+              border-color 0.4s ease,
+              background 0.4s ease;
+}
+
+.differential-grid article:hover {
+  transform: translateY(-6px);
+  border-color: rgba(167, 139, 250, 0.3);
+  background: rgba(255, 255, 255, 0.06);
+  box-shadow: 0 0 30px rgba(124, 58, 237, 0.15);
+}
+
+.differential-grid article::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(135deg, rgba(167, 139, 250, 0.4), transparent 50%);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  pointer-events: none;
+}
+
+.differential-grid article:hover::before {
+  opacity: 1;
+}
+
+/* Footer premium dark */
+.site-footer {
+  background:
+    radial-gradient(ellipse 60% 50% at 20% 20%, rgba(124, 58, 237, 0.2), transparent 60%),
+    radial-gradient(ellipse 40% 40% at 80% 90%, rgba(91, 33, 182, 0.15), transparent 50%),
+    linear-gradient(180deg, #1e1b4b 0%, #312e81 100%);
+}
+
+/* Touch feedback for mobile */
+@media (hover: none) {
+  .product-card:hover,
+  .essence-grid article:hover,
+  .process-timeline article:hover,
+  .differential-grid article:hover {
+    transform: none;
+  }
+
+  .product-card:active,
+  .essence-grid article:active,
+  .process-timeline article:active {
+    transform: scale(0.98);
+  }
+
+  .button:active,
+  .header-cta:active,
+  .whatsapp-link:active {
+    transform: scale(0.97);
+  }
+}
+
+/* Section heading refined */
+.section-heading h2,
+.section-copy h2,
+.contact h2 {
+  background: linear-gradient(135deg, var(--navy) 0%, var(--primary-dark) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Hero headline more refined */
+.hero h1 {
+  background: linear-gradient(135deg, var(--navy) 0%, var(--primary) 50%, var(--primary-dark) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Smooth scroll refined */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+/* Refined nav link underline */
+.site-nav a::after {
+  background: linear-gradient(90deg, var(--primary), var(--primary-light));
+  height: 2px;
+  border-radius: 2px;
+}
+
+/* Button glow refined */
+.button-primary,
+.header-cta {
+  box-shadow:
+    0 4px 16px rgba(124, 58, 237, 0.2),
+    0 0 0 1px rgba(124, 58, 237, 0.05);
+}
+
+.button-primary:hover,
+.header-cta:hover {
+  box-shadow:
+    0 8px 24px rgba(124, 58, 237, 0.3),
+    0 0 40px rgba(124, 58, 237, 0.1);
+}
+
+/* Science field refined */
+.connection {
+  background: linear-gradient(90deg, transparent, rgba(124, 58, 237, 0.2), transparent);
+  opacity: 0.3;
+}
+
+.molecule {
+  border: 1px solid rgba(124, 58, 237, 0.1);
+  opacity: 0.3;
+}
+
+/* Reduce motion for ultra modern effects */
+@media (prefers-reduced-motion: reduce) {
+  .scroll-progress {
+    display: none;
+  }
+
+  .cursor-follower {
+    display: none;
+  }
+
+  .hero-particles span {
+    animation: none;
+  }
+
+  .hero-badge .dot {
+    animation: none;
   }
 }

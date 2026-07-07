@@ -18,6 +18,8 @@
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
+    <div class="scroll-progress" data-scroll-progress></div>
+    <div class="cursor-follower" data-cursor-follower aria-hidden="true"></div>
     <div class="science-field" aria-hidden="true">
       <span class="connection connection-one"></span>
       <span class="connection connection-two"></span>
@@ -49,19 +51,25 @@
 
     <main>
       <section class="hero" id="inicio">
+        <div class="hero-particles" aria-hidden="true">
+          <span style="top: 15%; left: 10%; width: 6px; height: 6px; animation-delay: 0s;"></span>
+          <span style="top: 60%; left: 85%; width: 4px; height: 4px; animation-delay: -3s;"></span>
+          <span style="top: 80%; left: 25%; width: 8px; height: 8px; animation-delay: -6s;"></span>
+          <span style="top: 30%; left: 75%; width: 5px; height: 5px; animation-delay: -9s;"></span>
+          <span style="top: 70%; left: 60%; width: 3px; height: 3px; animation-delay: -4.5s;"></span>
+        </div>
         <div class="hero-content">
-          <h1>Ponte estratégica entre fabricantes globais e a indústria brasileira de saúde e beleza</h1>
+          <span class="hero-badge"><span class="dot"></span> Importação e Distribuição B2B</span>
+          <h1>Hialuronato de Sódio direto do fabricante global para sua indústria</h1>
           <p>
-            A HyaluBrasil soluciona o gargalo de fornecimento de matéria-prima de alta qualidade para as indústrias brasileiras.
-            Atuamos como representante local de fabricantes internacionais, oferecendo Hialuronato de Sódio com qualidade atestada,
-            rastreabilidade e disponibilidade imediata — sem lote mínimo e com suporte técnico especializado.
+            Sem intermediários desnecessários. Qualidade certificada, rastreabilidade integral e entrega ágil.
           </p>
           <div class="hero-actions">
-            <a class="button button-primary" href="#portfolio">Conheça nosso Portfólio</a>
-            <a class="button button-secondary" href="#contato">Fale com Nossa Equipe</a>
+            <a class="button button-primary" href="#portfolio">Ver Portfólio</a>
+            <a class="button button-secondary" href="#contato">Solicitar Cotação</a>
           </div>
           <p class="hero-note">
-            Obtido por fermentação microbiana, sem origem animal. Graus cosmético e farmacêutico disponíveis.
+            Fermentação microbiana, sem origem animal. Graus cosmético e farmacêutico.
           </p>
         </div>
         <div class="hero-media brand-hero-card" aria-label="Imagem institucional da Hyalu Brasil">
@@ -77,40 +85,32 @@
       <section class="about section" id="sobre">
         <div class="section-copy">
           <span class="section-label">Sobre a HyaluBrasil</span>
-          <h2>Soluucionamos o gargalo de fornecimento de Hialuronato de Sódio no Brasil</h2>
+          <h2>Conectamos fabricantes globais às indústrias brasileiras</h2>
           <p>
-            A indústria brasileira de cosméticos e farmacêutica opera sob forte dependência de matérias-primas importadas
-            de alto valor agregado, como o Hialuronato de Sódio, amplamente utilizado em aplicações de antienvelhecimento
-            e saúde articular. Muitas empresas dependem de um único fornecedor, aumentando a vulnerabilidade operacional
-            e reduzindo o poder de negociação.
+            A indústria brasileira depende de poucos fornecedores de Hialuronato de Sódio,
+            criando vulnerabilidade e reduzindo o poder de negociação.
           </p>
           <p>
-            A HyaluBrasil atua como intermediadora estratégica entre fabricantes internacionais e indústrias brasileiras,
-            facilitando o acesso a matérias-primas de alta qualidade com certificação adequada, condições comerciais
-            mais competitivas e suporte técnico local.
-          </p>
-          <p>
-            Nosso produto central é o Hialuronato de Sódio em pó, obtido por tecnologia de fermentação microbiana,
-            sem origem animal. Disponibilizado em diferentes especificações para atender aos setores cosmético,
-            farmacêutico e de dispositivos médicos.
+            A HyaluBrasil oferece acesso direto a fabricantes certificados com
+            qualidade, rastreabilidade e suporte técnico local.
           </p>
         </div>
         <div class="about-panel">
           <div>
             <strong>Fornecedores Qualificados</strong>
-            <span>Acesso a fabricantes internacionais certificados com rastreabilidade integral e documentação técnica completa.</span>
+            <span>Acesso direto a fabricantes certificados com rastreabilidade integral.</span>
           </div>
           <div>
             <strong>Grau Cosmético (SH-MDE)</strong>
-            <span>Variações de alto e baixo peso molecular para cremes, séruns e formulações antissinais.</span>
+            <span>Alto e baixo peso molecular para cremes e séruns antissinais.</span>
           </div>
           <div>
             <strong>Graus Farmacêuticos</strong>
-            <span>SH-MDN para oftálmica e SH-MDI para preenchedores dérmicos e viscossuplementação articular.</span>
+            <span>SH-MDN oftálmico e SH-MDI injetável para procedimentos médicos.</span>
           </div>
           <div>
-            <strong>Suporte Técnico-Regulatório</strong>
-            <span>Conformidade ANVISA, assessoria de comércio exterior e flexibilidade comercial sem lote mínimo.</span>
+            <strong>Suporte Técnico</strong>
+            <span>Conformidade ANVISA e flexibilidade sem lote mínimo.</span>
           </div>
         </div>
       </section>
@@ -189,10 +189,9 @@
       <section class="portfolio section" id="portfolio">
         <div class="section-heading">
           <span class="section-label">Produtos e Soluções</span>
-          <h2>Hialuronato de Sódio em diferentes especificações para cada aplicação</h2>
+          <h2>Hialuronato de Sódio para cada aplicação</h2>
           <p>
-            Nosso portfólio é composto por Hialuronato de Sódio de grau cosmético e farmacêutico,
-            obtido por fermentação microbiana sem origem animal, com rastreabilidade e qualidade atestada.
+            Graus cosmético e farmacêutico, obtidos por fermentação microbiana sem origem animal.
           </p>
         </div>
 
@@ -202,12 +201,8 @@
               <svg viewBox="0 0 24 24"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg>
             </div>
             <h3>Grau Cosmético (SH-MDE)</h3>
-            <p>
-              Disponível em variações de alto e baixo peso molecular, indicado para formulações de cremes,
-              séruns e outros produtos cosméticos. Benefícios: hidratação profunda da pele e contribuição
-              para efeitos antissinais.
-            </p>
-            <span class="card-tag">Cosméticos • Dermocosméticos • Cuidados com a Pele</span>
+            <p>Hidratação profunda e efeitos antissinais para cremes e séruns.</p>
+            <span class="card-tag">Cosméticos • Dermocosméticos</span>
             <a href="#contato">Solicitar Amostra</a>
           </article>
 
@@ -215,12 +210,9 @@
             <div class="card-icon" aria-hidden="true">
               <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v4m0 12v4M4.93 4.93l2.83 2.83m8.48 8.48l2.83 2.83M2 12h4m12 0h4M4.93 19.07l2.83-2.83m8.48-8.48l2.83-2.83"/></svg>
             </div>
-            <h3>Grau Farmacêutico Oftálmico (SH-MDN)</h3>
-            <p>
-              Caracterizado por alta pureza, destinado a aplicações oftálmicas. Produto que se diferencia
-              pela segurança, rastreabilidade e adequação a aplicações que exigem controle rigoroso de qualidade.
-            </p>
-            <span class="card-tag">Oftálmica • Dispositivos Médicos • Laboratórios</span>
+            <h3>Grau Farmacêutico (SH-MDN)</h3>
+            <p>Alta pureza para aplicações oftálmicas com controle rigoroso.</p>
+            <span class="card-tag">Oftálmica • Laboratórios</span>
             <a href="#contato">Solicitar Amostra</a>
           </article>
 
@@ -228,12 +220,9 @@
             <div class="card-icon" aria-hidden="true">
               <svg viewBox="0 0 24 24"><path d="M7 2v11h3v9l7-12h-4l4-8z"/></svg>
             </div>
-            <h3>Grau Farmacêutico Injetável (SH-MDI)</h3>
-            <p>
-              Com elevado nível de pureza, indicado para aplicações como preenchedores dérmicos e tratamentos
-              de viscossuplementação articular. Segurança, rastreabilidade integral e alto desempenho.
-            </p>
-            <span class="card-tag">Preenchedores • Viscossuplementação • Procedimentos Estéticos</span>
+            <h3>Grau Injetável (SH-MDI)</h3>
+            <p>Preenchedores dérmicos e viscossuplementação articular.</p>
+            <span class="card-tag">Estética • Reabilitação</span>
             <a href="#contato">Solicitar Amostra</a>
           </article>
         </div>
@@ -244,8 +233,7 @@
           <span class="section-label">Diferenciais</span>
           <h2 id="diferenciais-title">Por que escolher a HyaluBrasil?</h2>
           <p>
-            Atuamos como ponte estratégica entre fabricantes globais e empresas brasileiras,
-            superando barreiras regulatórias, operacionais e culturais.
+            Ponte estratégica entre fabricantes globais e empresas brasileiras.
           </p>
         </div>
 
@@ -253,22 +241,22 @@
           <article>
             <span class="mini-icon">01</span>
             <h3>Fornecedores Qualificados</h3>
-            <p>Acesso a fabricantes internacionais certificados, incluindo Focus Chem, com rastreabilidade integral e documentação técnica completa.</p>
+            <p>Acesso direto a fabricantes certificados com rastreabilidade integral.</p>
           </article>
           <article>
             <span class="mini-icon">02</span>
-            <h3>Suporte Técnico-Regulatório</h3>
-            <p>Conhecimento especializado da equipe fundadora, com conformidade ANVISA e assessoria de empresas de comércio exterior.</p>
+            <h3>Suporte Técnico</h3>
+            <p>Conformidade ANVISA e assessoria de comércio exterior.</p>
           </article>
           <article>
             <span class="mini-icon">03</span>
-            <h3>Flexibilidade Comercial</h3>
-            <p>Sem lote mínimo de aquisição. Produto nacionalizado com disponibilidade imediata e transporte aéreo para maior agilidade.</p>
+            <h3>Flexibilidade</h3>
+            <p>Sem lote mínimo. Produto nacionalizado com entrega ágil.</p>
           </article>
           <article>
             <span class="mini-icon">04</span>
             <h3>Operação Local</h3>
-            <p>Proximidade com o cliente brasileiro, suporte em português e resolução ágil de problemas operacionais.</p>
+            <p>Proximidade, suporte em português e resolução ágil.</p>
           </article>
         </div>
       </section>
@@ -276,13 +264,12 @@
       <section class="contact section" id="contato">
         <div class="contact-copy">
           <span class="section-label">Contato Corporativo</span>
-          <h2>Procurando um parceiro confiável para a importação de insumos de saúde?</h2>
+          <h2>Precisa de Hialuronato de Sódio qualificado?</h2>
           <p>
-            Fale com a equipe estratégica da HyaluBrasil e descubra como podemos apoiar sua empresa no acesso
-            a Hialuronato de Sódio qualificado, com segurança, agilidade e visão de longo prazo.
+            Fale com nossa equipe e receba uma proposta personalizada.
           </p>
           <a class="whatsapp-link" href="https://wa.me/5500000000000" target="_blank" rel="noreferrer">
-            Falar pelo WhatsApp Corporativo
+            Falar pelo WhatsApp
           </a>
         </div>
 

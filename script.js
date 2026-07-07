@@ -9,6 +9,72 @@ if (year) {
   year.textContent = new Date().getFullYear();
 }
 
+// Scroll progress indicator
+const scrollProgress = document.querySelector("[data-scroll-progress]");
+const updateScrollProgress = () => {
+  if (!scrollProgress) return;
+  const scrollTop = window.scrollY;
+  const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+  const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+  scrollProgress.style.width = `${progress}%`;
+};
+updateScrollProgress();
+window.addEventListener("scroll", updateScrollProgress, { passive: true });
+
+// Cursor follower (desktop only)
+const cursorFollower = document.querySelector("[data-cursor-follower]");
+if (cursorFollower && window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
+  let cursorX = 0;
+  let cursorY = 0;
+  let followerX = 0;
+  let followerY = 0;
+
+  document.addEventListener("mousemove", (e) => {
+    cursorX = e.clientX;
+    cursorY = e.clientY;
+  });
+
+  // Smooth follow with lerp
+  const animateCursor = () => {
+    followerX += (cursorX - followerX) * 0.18;
+    followerY += (cursorY - followerY) * 0.18;
+    cursorFollower.style.transform = `translate(${followerX}px, ${followerY}px) translate(-50%, -50%)`;
+    requestAnimationFrame(animateCursor);
+  };
+  animateCursor();
+
+  // Grow on interactive elements
+  document.querySelectorAll("a, button, .product-card, .essence-grid article").forEach((el) => {
+    el.addEventListener("mouseenter", () => {
+      cursorFollower.style.width = "24px";
+      cursorFollower.style.height = "24px";
+      cursorFollower.style.opacity = "0.3";
+    });
+    el.addEventListener("mouseleave", () => {
+      cursorFollower.style.width = "8px";
+      cursorFollower.style.height = "8px";
+      cursorFollower.style.opacity = "0.5";
+    });
+  });
+} else if (cursorFollower) {
+  cursorFollower.style.display = "none";
+}
+
+// Magnetic buttons effect (desktop only)
+if (window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
+  document.querySelectorAll(".button, .header-cta, .whatsapp-link").forEach((button) => {
+    button.addEventListener("mousemove", (e) => {
+      const rect = button.getBoundingClientRect();
+      const x = e.clientX - rect.left - rect.width / 2;
+      const y = e.clientY - rect.top - rect.height / 2;
+      button.style.transform = `translate(${x * 0.15}px, ${y * 0.2}px)`;
+    });
+    button.addEventListener("mouseleave", () => {
+      button.style.transform = "";
+    });
+  });
+}
+
 // Mobile menu toggle
 if (header && navToggle) {
   navToggle.addEventListener("click", () => {
@@ -65,10 +131,21 @@ if (form && formNote) {
   });
 }
 
-// Scroll reveal with multiple animation types
+// Scroll reveal with 3D animation types
 if ("IntersectionObserver" in window) {
-  const revealItems = document.querySelectorAll(
-    ".section-copy, .section-heading, .about-panel, .essence-grid article, .process-timeline article, .product-card, .differential-grid article, .contact-copy, .contact-form"
+  // Elements that reveal from left
+  const revealLeftItems = document.querySelectorAll(
+    ".section-copy, .contact-copy"
+  );
+
+  // Elements that reveal from right
+  const revealRightItems = document.querySelectorAll(
+    ".about-panel, .contact-form"
+  );
+
+  // Elements that reveal from up
+  const revealUpItems = document.querySelectorAll(
+    ".section-heading, .essence-grid article, .process-timeline article, .product-card, .differential-grid article"
   );
 
   const observer = new IntersectionObserver(
@@ -80,12 +157,25 @@ if ("IntersectionObserver" in window) {
         }
       });
     },
-    { threshold: 0.12, rootMargin: "0px 0px -40px 0px" }
+    { threshold: 0.1, rootMargin: "0px 0px -30px 0px" }
   );
 
-  revealItems.forEach((item, index) => {
-    item.classList.add("reveal");
-    item.style.transitionDelay = `${Math.min(index % 4, 3) * 100}ms`;
+  // Apply 3D reveal classes with stagger
+  revealLeftItems.forEach((item, index) => {
+    item.classList.add("reveal-3d-left");
+    item.style.transitionDelay = `${index * 100}ms`;
+    observer.observe(item);
+  });
+
+  revealRightItems.forEach((item, index) => {
+    item.classList.add("reveal-3d-right");
+    item.style.transitionDelay = `${index * 100}ms`;
+    observer.observe(item);
+  });
+
+  revealUpItems.forEach((item, index) => {
+    item.classList.add("reveal-3d-up");
+    item.style.transitionDelay = `${Math.min(index % 4, 3) * 80}ms`;
     observer.observe(item);
   });
 
@@ -94,17 +184,19 @@ if ("IntersectionObserver" in window) {
   const heroMedia = document.querySelector(".hero-media");
   
   if (heroContent) {
-    heroContent.classList.add("reveal");
+    heroContent.classList.add("reveal-3d-left");
     observer.observe(heroContent);
   }
   
   if (heroMedia) {
-    heroMedia.classList.add("reveal");
-    heroMedia.style.transitionDelay = "150ms";
+    heroMedia.classList.add("reveal-3d-right");
+    heroMedia.style.transitionDelay = "200ms";
     observer.observe(heroMedia);
   }
 } else {
-  document.querySelectorAll(".reveal").forEach((item) => item.classList.add("is-visible"));
+  document.querySelectorAll(".reveal-3d-left, .reveal-3d-right, .reveal-3d-up").forEach((item) => {
+    item.classList.add("is-visible");
+  });
 }
 
 // Smooth scroll for anchor links
@@ -124,14 +216,29 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
   });
 });
 
-// Parallax effect for hero (subtle)
+// 3D Parallax effect for hero
 let ticking = false;
-const updateParallax = () => {
+const updateParallax3D = () => {
   const scrollY = window.scrollY;
   const heroMedia = document.querySelector(".hero-media");
+  const heroProof = document.querySelector(".hero-proof");
   
   if (heroMedia && scrollY < window.innerHeight) {
-    heroMedia.style.transform = `translateY(${scrollY * 0.05}px)`;
+    const progress = scrollY / window.innerHeight;
+    heroMedia.style.transform = `
+      translateY(${scrollY * 0.03}px) 
+      translateZ(${20 - progress * 40}px) 
+      rotateY(${progress * 3}deg)
+    `;
+  }
+  
+  if (heroProof && scrollY < window.innerHeight) {
+    const progress = scrollY / window.innerHeight;
+    heroProof.style.transform = `
+      translateY(${scrollY * 0.02}px) 
+      translateZ(${10 - progress * 20}px) 
+      rotateX(${progress * 2}deg)
+    `;
   }
   
   ticking = false;
@@ -139,7 +246,7 @@ const updateParallax = () => {
 
 window.addEventListener("scroll", () => {
   if (!ticking) {
-    requestAnimationFrame(updateParallax);
+    requestAnimationFrame(updateParallax3D);
     ticking = true;
   }
 }, { passive: true });
@@ -184,7 +291,7 @@ style.textContent = `
 `;
 document.head.appendChild(style);
 
-// Intersection counter for differentials
+// Intersection counter for differentials with 3D
 const counterObserver = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
@@ -192,7 +299,7 @@ const counterObserver = new IntersectionObserver((entries) => {
       miniIcons.forEach((icon, index) => {
         setTimeout(() => {
           icon.style.opacity = '1';
-          icon.style.transform = 'translateY(0)';
+          icon.style.transform = 'perspective(500px) translateZ(0) rotateY(0deg)';
         }, index * 150);
       });
       counterObserver.unobserve(entry.target);
@@ -203,15 +310,15 @@ const counterObserver = new IntersectionObserver((entries) => {
 const differentialGrid = document.querySelector('.differential-grid');
 if (differentialGrid) {
   const miniIcons = differentialGrid.querySelectorAll('.mini-icon');
-  miniIcons.forEach(icon => {
+  miniIcons.forEach((icon, index) => {
     icon.style.opacity = '0';
-    icon.style.transform = 'translateY(10px)';
-    icon.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
+    icon.style.transform = `perspective(500px) translateZ(-15px) rotateY(${index % 2 === 0 ? -20 : 20}deg)`;
+    icon.style.transition = 'opacity 0.5s ease, transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)';
   });
   counterObserver.observe(differentialGrid);
 }
 
-// Process timeline animation
+// Process timeline 3D animation
 const timelineObserver = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
@@ -219,7 +326,7 @@ const timelineObserver = new IntersectionObserver((entries) => {
       articles.forEach((article, index) => {
         setTimeout(() => {
           article.style.opacity = '1';
-          article.style.transform = 'translateY(0)';
+          article.style.transform = 'perspective(1000px) rotateY(0deg) rotateX(0deg) translateZ(0)';
         }, index * 120);
       });
       timelineObserver.unobserve(entry.target);
@@ -230,10 +337,10 @@ const timelineObserver = new IntersectionObserver((entries) => {
 const processTimeline = document.querySelector('.process-timeline');
 if (processTimeline) {
   const articles = processTimeline.querySelectorAll('article');
-  articles.forEach(article => {
+  articles.forEach((article, index) => {
     article.style.opacity = '0';
-    article.style.transform = 'translateY(20px)';
-    article.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+    article.style.transform = `perspective(1000px) rotateY(${index % 2 === 0 ? -10 : 10}deg) translateZ(-20px)`;
+    article.style.transition = 'opacity 0.6s ease, transform 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
   });
   timelineObserver.observe(processTimeline);
 }
