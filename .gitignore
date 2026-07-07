@@ -1,0 +1,5 @@
+```
+# Compressed files
+*.tar.gz
+*.tar.gz.b64
+```
